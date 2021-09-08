@@ -34,7 +34,11 @@ yabai -m config right_padding                8
 yabai -m config window_gap                   8
 
 # spaces
-while [[ $(yabai -m query --spaces | jq length) < 4 ]]
+function get_space_count () {
+    yabai -m query --spaces | grep '"id"' | wc -l
+}
+
+while [[ $(get_space_count) -lt 4 ]]
 do
     yabai -m space --create
 done
